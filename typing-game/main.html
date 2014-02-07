@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Typing Game</title>
+    <meta charset="utf-8" />
+    <script src="jquery-1.6.4.min.js"></script>
+    <script src="jquery-ui-1.8.16.effects.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="cssreset-min.css" />
+    <link rel="stylesheet" type="text/css" href="fonts-min.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="board"></div>
+    <div class="input-bar">
+      <div class="padding-wrapper">
+	<input />
+      </div>
+      <div class="sidebar">
+	<button class="pause">pause</button>
+	<div class="lives">
+	  <span class="symbol">♥</span><span class="value">-</span>
+	</div>
+	<div class="points">
+	  <span class="symbol">★</span><span class="value">-</span>
+	</div>
+      </div>
+    </div>
+
+    <div class="gray-layer">
+      <div class="hcentering-wrapper">
+    	<div class="vcentering-wrapper">
+    	  <div class="menu init-menu">
+	    <h1>Typing Game</h1>
+	    <h2>Written by Karol Kozub</h2>
+	    <div class="button-wrapper">
+    	      <button>Play</button>
+	    </div>
+    	  </div>
+    	  <div class="menu pause-menu">
+    	    <div class="button-wrapper">
+	      <button>Resume</button>
+	    </div>
+    	  </div>
+    	  <div class="menu ending-menu">
+	    <h1>Your score is </h1>
+	    <h1 class="score">_</h1>
+	    <div class="button-wrapper">
+    	      <button>Play again</button>
+	    </div>
+    	  </div>
+    	</div>
+      </div>
+    </div>
+    
+    <div class="countdown">
+      <div class="hcentering-wrapper">
+    	<div class="vcentering-wrapper">
+	  <div class="value"></div>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>
