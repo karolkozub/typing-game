@@ -84,7 +84,7 @@ Task.prototype.start = function () {
         this.node_
             .hide()
             .appendTo(this.boardNode_);
-        
+
         this.update();
 
         this.node_.show();
@@ -92,7 +92,7 @@ Task.prototype.start = function () {
 
     if (this.state_ !== "finished") {
         this.state_ = "active";
-        
+
         this.timer_.start();
     }
 };
@@ -100,7 +100,7 @@ Task.prototype.start = function () {
 Task.prototype.pause = function () {
     if (this.state_ !== "finished") {
         this.state_ = "paused";
-        
+
         this.timer_.pause();
     }
 };
@@ -118,7 +118,7 @@ Task.prototype.updateNode_ = function () {
     var hScale = this.boardNode_.height()
 
     this.node_.css({
-        left: this.position_   * wScale, 
+        left: this.position_   * wScale,
         top:  this.progress_() * hScale - this.node_.outerHeight()
     });
 };
@@ -140,7 +140,7 @@ Task.prototype.finish_ = function (success) {
 Task.prototype.tryAnswer = function (answer) {
     if (this.state_ === "active" && this.checkAnswer_(answer)) {
         this.finish_(true);
-        
+
         return true;
     }
 
@@ -153,7 +153,7 @@ Task.prototype.puff_ = function (color) {
         .animate({
             backgroundColor: color
         }, {
-            queue: false, 
+            queue: false,
             complete: this.remove.bind(this)
         });
 };
@@ -219,14 +219,14 @@ var InputBar = function (node, onAnswer, onPause) {
     this.pointsNode_  = node.find(".sidebar .points");
     this.livesNode_   = node.find(".sidebar .lives");
     this.pauseButton_ = node.find("button.pause");
-    
+
     this.pauseButton_.click(onPause);
 
     this.inputNode_
         .keydown(function (event) {
             if (event.keyCode === 13) {
                 onAnswer.call(null, $(this).val());
-                
+
                 $(this).val("");
             }
         })
@@ -270,14 +270,14 @@ InputBar.prototype.highlight = function (color) {
     this.inputNode_
         .stop()
         .css({backgroundColor: color})
-        .animate({backgroundColor: "white"}, 
+        .animate({backgroundColor: "white"},
                  {duration: 1000});
 };
 
 InputBar.prototype.start = function () {
     this.inputNode_.removeAttr('disabled');
     this.pauseButton_.removeAttr('disabled');
-    
+
     this.inputNode_.focus();
 };
 
@@ -307,7 +307,7 @@ var TickGenerator = function (delay, onTick) {
 TickGenerator.prototype.start = function () {
     if (this.timer_ === null) {
         var now = $.now();
-        
+
         if (this.lastTime_ === null) {
             this.onTick_();
             this.lastTime_ = now;
@@ -315,7 +315,7 @@ TickGenerator.prototype.start = function () {
             this.lastTime_ += (now - this.pauseTime_);
             this.pauseTime_ = null;
         }
-        
+
         this.update_();
     }
 };
@@ -328,7 +328,7 @@ TickGenerator.prototype.update_ = function () {
         this.lastTime_ += this.delay_;
     }
 
-    this.timer_ = setTimeout(this.update_.bind(this), 
+    this.timer_ = setTimeout(this.update_.bind(this),
                              this.lastTime_ + this.delay - now);
 };
 
@@ -369,7 +369,7 @@ Ticker.prototype.update_ = function () {
 // to be refactored
 var Game = function (body, dictionary) {
     this.boardNode_ = body.find(".board");
-    this.inputBar_ = new InputBar(body.find(".input-bar"), 
+    this.inputBar_ = new InputBar(body.find(".input-bar"),
                                   this.tryAnswer.bind(this),
                                   this.pauseGame_.bind(this));
     this.tickGenerator_ = new TickGenerator(2500, this.addTask.bind(this));
@@ -398,7 +398,7 @@ Game.prototype.start = function () {
         this.inputBar_.start();
         this.tickGenerator_.start();
         this.ticker_.start();
-        
+
         this.tasks_.forEach(function (task) {
             task.start();
         });
@@ -415,7 +415,7 @@ Game.prototype.pause = function () {
 
         this.tasks_.forEach(function (task) {
             task.pause();
-        });    
+        });
     }
 };
 
@@ -446,9 +446,9 @@ Game.prototype.resumeGame_ = function () {
     // hide menu
     this.grayLayer_.hide();
     this.pauseMenu_.hide();
-    
+
     //start
-    this.countdownStart();    
+    this.countdownStart();
 };
 
 Game.prototype.pauseGame_ = function () {
@@ -494,7 +494,7 @@ Game.prototype.countdownStart = function () {
 };
 
 Game.prototype.addTask = function () {
-    var task = this.taskFactory_.createTask(this.boardNode_, 
+    var task = this.taskFactory_.createTask(this.boardNode_,
                                             this.onTaskFinish_.bind(this),
                                             this.points_);
 
@@ -530,7 +530,7 @@ Game.prototype.removeLife = function () {
 Game.prototype.addPoint = function () {
     this.points_ += 1;
 
-    this.inputBar_.setPoints(this.points_);    
+    this.inputBar_.setPoints(this.points_);
 };
 
 Game.prototype.tryAnswer = function (answer) {
@@ -546,7 +546,7 @@ Game.prototype.tryAnswer = function (answer) {
 Game.prototype.update_ = function () {
     this.tasks_.forEach(function (task) {
         task.update();
-    });    
+    });
 };
 
 /***************************************************************************
